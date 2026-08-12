@@ -25,4 +25,5 @@ workflow because browsers cannot reliably display them. Files are immutable:
 replace a photograph by publishing a new id rather than overwriting a path.
 
 The gallery manifest follows [`schemas/gallery.schema.json`](schemas/gallery.schema.json).
-
+The end-to-end upload, security, recovery, and capacity model is documented in
+[`PUBLISHING.md`](PUBLISHING.md).
