@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-12T17:19:06.608Z",
+  "updatedAt": "2026-08-12T17:21:05.972Z",
   "items": [
+    {
+      "id": "dsc03503-msqcva0t-1k890to",
+      "publishedAt": "2026-08-12T17:21:05.827Z",
+      "capturedAt": null,
+      "title": {
+        "en": "DSC03503",
+        "zh": "DSC03503"
+      },
+      "alt": {
+        "en": "Automotive photograph: DSC03503",
+        "zh": "汽车摄影：DSC03503"
+      },
+      "location": {
+        "en": "",
+        "zh": ""
+      },
+      "vehicle": {
+        "en": "",
+        "zh": ""
+      },
+      "camera": "",
+      "lens": "",
+      "width": 4672,
+      "height": 7008,
+      "original": "https://github.com/widmonstertony/Photography/releases/download/photography-originals-v1/dsc03503-msqcva0t-1k890to.jpg",
+      "preview": "https://raw.githubusercontent.com/widmonstertony/Photography/media/previews/2026/dsc03503-msqcva0t-1k890to.jpg",
+      "featured": false
+    },
     {
       "id": "dsc05142-msqbl0zp-tyhzxc",
       "publishedAt": "2026-08-12T17:19:06.441Z",
