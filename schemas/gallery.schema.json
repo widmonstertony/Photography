@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tonytan.me/schemas/photography-gallery.json",
+  "title": "Tony Tan photography gallery",
+  "type": "object",
+  "required": ["schemaVersion", "updatedAt", "items"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "updatedAt": { "type": ["string", "null"], "format": "date-time" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "publishedAt", "title", "alt", "original", "preview", "width", "height"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{7,63}$" },
+          "publishedAt": { "type": "string", "format": "date-time" },
+          "capturedAt": { "type": ["string", "null"] },
+          "title": {
+            "type": "object",
+            "required": ["en", "zh"],
+            "properties": { "en": { "type": "string" }, "zh": { "type": "string" } },
+            "additionalProperties": false
+          },
+          "alt": {
+            "type": "object",
+            "required": ["en", "zh"],
+            "properties": { "en": { "type": "string" }, "zh": { "type": "string" } },
+            "additionalProperties": false
+          },
+          "location": { "type": "object" },
+          "vehicle": { "type": "object" },
+          "camera": { "type": "string" },
+          "lens": { "type": "string" },
+          "width": { "type": "integer", "minimum": 1 },
+          "height": { "type": "integer", "minimum": 1 },
+          "original": { "type": "string", "format": "uri" },
+          "preview": { "type": "string", "format": "uri" },
+          "featured": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
