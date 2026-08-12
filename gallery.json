@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-12T17:21:16.544Z",
+  "updatedAt": "2026-08-12T17:22:38.598Z",
   "items": [
+    {
+      "id": "dsc00325-msqcvalr-kryxa4",
+      "publishedAt": "2026-08-12T17:22:38.449Z",
+      "capturedAt": null,
+      "title": {
+        "en": "DSC00325",
+        "zh": "DSC00325"
+      },
+      "alt": {
+        "en": "Automotive photograph: DSC00325",
+        "zh": "汽车摄影：DSC00325"
+      },
+      "location": {
+        "en": "",
+        "zh": ""
+      },
+      "vehicle": {
+        "en": "",
+        "zh": ""
+      },
+      "camera": "",
+      "lens": "",
+      "width": 4672,
+      "height": 7008,
+      "original": "https://github.com/widmonstertony/Photography/releases/download/photography-originals-v1/dsc00325-msqcvalr-kryxa4.jpg",
+      "preview": "https://raw.githubusercontent.com/widmonstertony/Photography/media/previews/2026/dsc00325-msqcvalr-kryxa4.jpg",
+      "featured": false
+    },
     {
       "id": "dsc03478-msqcva9a-1k2v2l1",
       "publishedAt": "2026-08-12T17:21:16.385Z",
