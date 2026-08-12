@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-12T17:22:38.598Z",
+  "updatedAt": "2026-08-12T17:22:47.437Z",
   "items": [
+    {
+      "id": "dsc08227-enhanced-nr-edit-msqcvawc-18gmlid",
+      "publishedAt": "2026-08-12T17:22:47.299Z",
+      "capturedAt": null,
+      "title": {
+        "en": "DSC08227 Enhanced NR Edit",
+        "zh": "DSC08227 Enhanced NR Edit"
+      },
+      "alt": {
+        "en": "Automotive photograph: DSC08227 Enhanced NR Edit",
+        "zh": "汽车摄影：DSC08227 Enhanced NR Edit"
+      },
+      "location": {
+        "en": "",
+        "zh": ""
+      },
+      "vehicle": {
+        "en": "",
+        "zh": ""
+      },
+      "camera": "",
+      "lens": "",
+      "width": 4672,
+      "height": 7008,
+      "original": "https://github.com/widmonstertony/Photography/releases/download/photography-originals-v1/dsc08227-enhanced-nr-edit-msqcvawc-18gmlid.jpg",
+      "preview": "https://raw.githubusercontent.com/widmonstertony/Photography/media/previews/2026/dsc08227-enhanced-nr-edit-msqcvawc-18gmlid.jpg",
+      "featured": false
+    },
     {
       "id": "dsc00325-msqcvalr-kryxa4",
       "publishedAt": "2026-08-12T17:22:38.449Z",
