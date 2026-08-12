@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-12T05:50:43.451Z",
+  "updatedAt": "2026-08-12T05:51:23.946Z",
   "items": [
+    {
+      "id": "dsc05910-mspn3q97-1eg9f8",
+      "publishedAt": "2026-08-12T05:51:23.849Z",
+      "capturedAt": null,
+      "title": {
+        "en": "Lines of Light",
+        "zh": "光线勾勒"
+      },
+      "alt": {
+        "en": "A low-angle portrait of a white Porsche 718 Boxster GTS 4.0 beneath a grid of workshop lights, balancing clean architectural lines with the car’s compact, purposeful stance.",
+        "zh": "低机位仰拍白色保时捷 718 Boxster GTS 4.0，工坊灯带在车身与空间中延伸，以干净的建筑线条衬托紧凑而蓄势待发的姿态。"
+      },
+      "location": {
+        "en": "Oh My Car Butler · Santa Clara, California",
+        "zh": "Oh My Car Butler · 加州圣克拉拉"
+      },
+      "vehicle": {
+        "en": "2025 Porsche 718 Boxster GTS 4.0",
+        "zh": "2025 保时捷 718 Boxster GTS 4.0"
+      },
+      "camera": "",
+      "lens": "",
+      "width": 4672,
+      "height": 7008,
+      "original": "https://raw.githubusercontent.com/widmonstertony/Photography/media/originals/2026/dsc05910-mspn3q97-1eg9f8.jpg",
+      "preview": "https://raw.githubusercontent.com/widmonstertony/Photography/media/previews/2026/dsc05910-mspn3q97-1eg9f8.webp",
+      "featured": true
+    },
     {
       "id": "dsc05892-mspn3pcy-vuon2n",
       "publishedAt": "2026-08-12T05:50:43.353Z",
