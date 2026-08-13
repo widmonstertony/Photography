@@ -1,0 +1,141 @@
+name: Photography publisher CI/CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: photography-publisher-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Reject committed credential material
+        run: |
+          if git grep -I -q -P -e '(-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}|gh[pousr]_[0-9A-Za-z]{20,}|github_pat_[0-9A-Za-z_]{20,}|sk-[A-Za-z0-9_-]{32,}|AIza[0-9A-Za-z_-]{30,})' -- .; then
+            echo 'Potential credential material is committed; refusing to build.' >&2
+            exit 1
+          fi
+
+      - name: Verify the pinned AWS session plugin signature
+        env:
+          VERIFY_ONLY: "1"
+        run: bash .github/install-session-manager-plugin.sh
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+
+      - name: Test publisher service
+        working-directory: uploader
+        run: npm test
+
+      - name: Package immutable publisher release
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          install -d release/services/photography-uploader
+          install -m 0644 uploader/package.json release/services/photography-uploader/package.json
+          install -m 0644 uploader/server.mjs release/services/photography-uploader/server.mjs
+          install -m 0644 uploader/github.mjs release/services/photography-uploader/github.mjs
+          install -m 0644 uploader/policy.mjs release/services/photography-uploader/policy.mjs
+          printf '%s\n' "$GITHUB_SHA" > release/.deploy-commit
+          tar -C release -czf release.tgz .
+
+      - name: Upload verified publisher release
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: photography-publisher-${{ github.sha }}
+          path: release.tgz
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out pinned deployment host key
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Download verified publisher release
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: photography-publisher-${{ github.sha }}
+
+      - name: Exchange GitHub OIDC for the Photography-only AWS role
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        with:
+          role-to-assume: arn:aws:iam::749355576137:role/TonyTanDeployPhotography
+          aws-region: us-east-2
+          role-duration-seconds: 900
+          role-session-name: tonytan-${{ github.run_id }}
+          allowed-account-ids: "749355576137"
+          mask-aws-account-id: true
+          unset-current-credentials: true
+
+      - name: Install the signature-verified AWS session plugin
+        run: bash .github/install-session-manager-plugin.sh
+
+      - name: Deploy through SSM and the repository-scoped SSH key
+        env:
+          PRODUCTION_DEPLOY_KEY: ${{ secrets.PRODUCTION_DEPLOY_KEY }}
+        run: |
+          test -n "${PRODUCTION_DEPLOY_KEY:-}"
+          install -d -m 0700 "$HOME/.ssh"
+          printf '%s\n' "$PRODUCTION_DEPLOY_KEY" > "$HOME/.ssh/production_deploy"
+          chmod 0600 "$HOME/.ssh/production_deploy"
+          install -m 0644 .github/tonytan.me_known_hosts "$HOME/.ssh/known_hosts"
+          readonly release_bucket="tonytan-project-releases-749355576137-us-east-2"
+          readonly app_id="photography"
+          release_size="$(stat -c %s release.tgz)"
+          release_sha256="$(sha256sum release.tgz | awk '{print $1}')"
+          release_key="${app_id}/${GITHUB_SHA}.tgz"
+          aws s3api put-object \
+            --bucket "$release_bucket" \
+            --key "$release_key" \
+            --body release.tgz \
+            --checksum-algorithm SHA256 \
+            --server-side-encryption AES256 \
+            --expected-bucket-owner 749355576137 \
+            --no-cli-pager >/dev/null
+          release_url="$(aws s3 presign "s3://${release_bucket}/${release_key}" --region us-east-2 --expires-in 900)"
+          printf 'TONYTAN_S3_RELEASE_V1\n%s\n%s\n%s\n%s\n' \
+            "$GITHUB_SHA" "$release_size" "$release_sha256" "$release_url" \
+            > release.manifest
+          ssh -i "$HOME/.ssh/production_deploy" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o HostKeyAlias=tonytan.me \
+            -o "ProxyCommand=aws ssm start-session --region us-east-2 --target %h --document-name TonyTan-GitHubDeploySSH" \
+            github-photography@i-062a7bee78347292c < release.manifest
+
+      - name: Verify public publisher health
+        run: |
+          health="$(curl --fail --silent --show-error --retry 5 --retry-all-errors https://tonytan.me/photography/api/healthz)"
+          case "$health" in
+            *'"ok":true'*) ;;
+            *) echo 'The photography publisher is unhealthy.' >&2; exit 1 ;;
+          esac
+
+      - name: Remove downloaded release and deployment key
+        if: always()
+        run: rm -f -- release.tgz release.manifest "$HOME/.ssh/production_deploy"
