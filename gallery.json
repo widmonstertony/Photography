@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13T04:38:01.476Z",
+  "updatedAt": "2026-08-13T04:39:03.612Z",
   "items": [
+    {
+      "id": "dsc03839-msr138uf-1tsfy8g",
+      "publishedAt": "2026-08-13T04:39:03.445Z",
+      "capturedAt": null,
+      "title": {
+        "en": "DSC03839",
+        "zh": "DSC03839"
+      },
+      "alt": {
+        "en": "Automotive photograph: DSC03839",
+        "zh": "汽车摄影：DSC03839"
+      },
+      "location": {
+        "en": "",
+        "zh": ""
+      },
+      "vehicle": {
+        "en": "",
+        "zh": ""
+      },
+      "camera": "",
+      "lens": "",
+      "width": 4672,
+      "height": 7008,
+      "original": "https://github.com/widmonstertony/Photography/releases/download/photography-originals-v1/dsc03839-msr138uf-1tsfy8g.jpg",
+      "preview": "https://raw.githubusercontent.com/widmonstertony/Photography/media/previews/2026/dsc03839-msr138uf-1tsfy8g.jpg",
+      "featured": false
+    },
     {
       "id": "dsc08227-enhanced-nr-edit-msqcvawc-18gmlid",
       "publishedAt": "2026-08-12T17:22:47.299Z",
