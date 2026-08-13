@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13T04:39:05.118Z",
+  "updatedAt": "2026-08-13T04:39:10.202Z",
   "items": [
+    {
+      "id": "dsc06223-enhanced-nr-msr139hb-zug6z4",
+      "publishedAt": "2026-08-13T04:39:10.110Z",
+      "capturedAt": null,
+      "title": {
+        "en": "DSC06223 Enhanced NR",
+        "zh": "DSC06223 Enhanced NR"
+      },
+      "alt": {
+        "en": "Automotive photograph: DSC06223 Enhanced NR",
+        "zh": "汽车摄影：DSC06223 Enhanced NR"
+      },
+      "location": {
+        "en": "",
+        "zh": ""
+      },
+      "vehicle": {
+        "en": "",
+        "zh": ""
+      },
+      "camera": "",
+      "lens": "",
+      "width": 4672,
+      "height": 7008,
+      "original": "https://github.com/widmonstertony/Photography/releases/download/photography-originals-v1/dsc06223-enhanced-nr-msr139hb-zug6z4.jpg",
+      "preview": "https://raw.githubusercontent.com/widmonstertony/Photography/media/previews/2026/dsc06223-enhanced-nr-msr139hb-zug6z4.jpg",
+      "featured": false
+    },
     {
       "id": "dsc07239-enhanced-nr-edit-msqcvb7g-5qa5lf",
       "publishedAt": "2026-08-13T04:39:05.028Z",
